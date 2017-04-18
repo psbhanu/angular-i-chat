@@ -1,0 +1,104 @@
+                    <div class="row-fluid">
+                    <form id="send-message-area" action="" method="post" class="" role="form" >
+                        <div id="chatadd">
+                            <div id="chatex" style="text-align: right; margin-bottom:5px;">
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.clearScreen('chat-area');" >
+                                    <img src="images/global/clearx32.png" alt="B" />
+                                </button>
+                                <!-- Split button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        <img width="16" height="16" src="images/global/smilex32.png" alt=":P" title=":P" />
+                                        <span class="caret"></span>
+                                    </button>                        
+                                    <ul class="dropdown-menu psb-smilie-dropdown" role="menu" style=" ">
+                                        <li>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':)', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0001.gif' alt=':)' title=':)' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0001.gif" alt=":)" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0001.gif' alt=':)' title=':)' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':(', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0002.gif' alt=':(' title=':(' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0002.gif" alt=":(" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0002.gif' alt=':(' title=':(' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':P', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0003.gif' alt=':P' title=':P' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0003.gif" alt=":P" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0003.gif' alt=':P' title=':P' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':D', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0004.gif' alt=':D' title=':D' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0004.gif" alt=":D" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0004.gif' alt=':D' title=':D' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':S', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0005.gif' alt=':S' title=':S' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0005.gif" alt=":S" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0005.gif' alt=':S' title=':S' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':O', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0006.gif' alt=':O' title=':O' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0006.gif" alt=":O" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0006.gif' alt=':O' title=':O' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':=)', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0007.gif' alt=':=' title=':=' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0007.gif" alt=":=)" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0007.gif' alt=':=' title=':=' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':|H', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0008.gif' alt=':|H' title=':|H' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0008.gif" alt=":|H" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0008.gif' alt=':|H' title=':|H' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':X', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0009.gif' alt=':X' title=':X' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0009.gif" alt=":X" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0009.gif' alt=':X' title=':X' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':-*', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0010.gif' alt=':-*' title=':-*' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0010.gif" alt=":-*" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0010.gif' alt=':-*' title=':-*' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':JJ', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0011.gif' alt=':JJ' title=':JJ' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0011.gif" alt=":JJ" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0011.gif' alt=':JJ' title=':JJ' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':II', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0012.gif' alt=':II' title=':II' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0012.gif" alt=":II" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0012.gif' alt=':II' title=':II' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':HH', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0013.gif' alt=':HH' title=':HH' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0013.gif" alt=":HH" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0013.gif' alt=':HH' title=':HH' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':GG', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0014.gif' alt=':GG' title=':GG' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0014.gif" alt=":GG" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0014.gif' alt=':GG' title=':GG' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':FF', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0015.gif' alt=':FF' title=':FF' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0015.gif" alt=":FF" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0015.gif' alt=':FF' title=':FF' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':EE', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0016.gif' alt=':EE' title=':EE' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0016.gif" alt=":EE" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0016.gif' alt=':EE' title=':EE' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':KK', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0017.gif' alt=':KK' title=':KK' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0017.gif" alt=":KK" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0017.gif' alt=':KK' title=':KK' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':CC', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0018.gif' alt=':CC' title=':CC' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0018.gif" alt=":CC" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0018.gif' alt=':CC' title=':CC' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':BB', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0019.gif' alt=':BB' title=':BB' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0019.gif" alt=":BB" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0019.gif' alt=':BB' title=':BB' />" />
+                                            </button>
+                                            <button type="button" class="btn btn-white btn-xs" onclick="chat.addSmile(':AA', 'sendie');" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0020.gif' alt=':AA' title=':AA' />" >
+                                                <img width="24" height="24" src="images/ywsmilies/0020.gif" alt=":AA" data-toggle="tooltip" data-placement="top" data-animation="true" data-html="true" title="<img class='psb-smilie-preview' src='images/ywsmilies/0020.gif' alt=':AA' title=':AA' />" />
+                                            </button>
+                                        </li>
+                                        <!--<li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>-->
+                                    </ul>
+                                </div> 
+                                <!-- /Split button -->
+                          
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[b]','[/b]', 'sendie');" >
+                                    <img src="images/smile/bold.png" alt="B" />
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[i]','[/i]', 'sendie');" >
+                                    <img src="images/smile/italic.png" alt="I" />
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[u]','[/u]', 'sendie');" >
+                                    <img src="images/smile/underline.png" alt="U" />
+                                </button>
+                            </div>
+                        </div>
+                        
+                       	<div class="form-group">
+                            <textarea id="sendie" class="psb-message-container" rows="3" maxlength = "1000" ></textarea>
+                        </div>                    
+                        <div class="form-group">
+                            <input type="button" value="Send" class="btn btn-info btn-block psb-send-message" id="psb-send-message" />
+                        </div>                    
+                    </form>
+                    </div>
