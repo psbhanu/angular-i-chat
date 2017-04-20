@@ -25,7 +25,7 @@
 		}
 	};	
 	
-	var iChat = angular.module('iChat', []);
+	var iChat = angular.module('iChat', ['ngSanitize']);
 	
 	// define iChat Message Service
 	iChat.service( 'Messages', function() {
@@ -46,28 +46,71 @@
 	iChat.controller('iChatController', ['$animate', '$q', '$parse', '$injector', function($animate, $q, $parse, $injector) {
 		
 	}]);
-		
-	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', function($animate, $q, $parse, $injector) {
+	iChat.filter('html_safe', ['$sce',function($sce) {
+		return function(value, type) {
+			return $sce.trustAs(type || 'html', value);
+		}
+	}]);	
+	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', '$sce', function($animate, $q, $parse, $injector, $sce) {
 		
 		return {
 			restrict: 'ECA',
 			controller: 'iChatController',
 			controllerAs: 'iChatCtrl',
 			transclude: true,
+			scope:{},
 			templateUrl: function(element, attr) {
 				return attr.templateUrl || 'templates/i-chat.html';
 			},
 			link : function (scope, elem, attr) {
+				scope.chats			= '<p><strong>Hi there! How can I help you?</strong></p>';
+				scope.typedText		= '';
+				
 				scope.label 		= attr.label || 'iChat';
-				scope.width 		= attr.width || '100px';
+				
+				scope.btnWidth 		= attr.btnWidth || 'auto';
+				scope.btnHeight 	= attr.btnHeight || 'auto';
+				scope.btnClass 		= attr.btnClass || 'btn btn-lg btn-primary';
+				
+				scope.fullHeight 	= attr.fullHeight || '500px';
+				scope.fullWidth 	= attr.fullWidth || 'auto';
+				
+				scope.minHeight 	= attr.minHeight || '50px';
+				scope.minWidth 		= attr.minWidth || 'auto';
 				
 				if(attr.opened){
 					scope.state 	= 'opened'
-					scope.height 	= attr.height || '500px';
+					scope.height 	= scope.fullHeight;
+					scope.width 	= scope.fullWidth;
 				}
 				else {
 					scope.state 	= 'closed';
-					scope.height 	= attr.height || '50px';
+					scope.height 	= scope.minHeight;
+					scope.width 	= scope.minWidth;
+				}
+				_l(scope.state);
+				
+				scope.iChatToggle = function(){
+					if( scope.state == 'closed'){
+						scope.state 	= 'opened';
+						scope.height 	= scope.fullHeight;
+						scope.width 	= scope.fullWidth; 
+					}
+					else {
+						scope.state 	= 'closed';
+						scope.height 	= scope.minHeight;
+						scope.width 	= scope.minWidth; 
+					}
+				}
+				scope.iChatSend = function(typedText){
+					scope.iChatUpdate();
+					_l(typedText);
+					scope.chats = $sce.trustAsHtml(scope.chats + '<p><strong>Me: </strong>' + typedText + '</p>'); 
+					this.typedText = '';
+				}
+				
+				scope.iChatUpdate = function(){
+					document.getElementById('i-chat-container-inner-chat-content').scrollTop = document.getElementById('i-chat-container-inner-chat-content').scrollHeight;
 				}
 			}
 		  };

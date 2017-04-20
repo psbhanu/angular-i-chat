@@ -25,13 +25,27 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/angular.min.js"></script>
+        <script src="js/angular-sanitize.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="js/angular-i-chat.js"></script>
   	</head>
   	<body>
-		<i-chat label="Chat with Me!" btn-width="200px"></i-chat>
+		<i-chat 
+			label="Chat with Me!" 
+			Xbtn-height="32px"
+			Xbtn-width="100px"
+			
+			btn-class="btn btn-default"
+			
+			min-height="32px"
+			min-width="320px"
+			
+			full-height="500px"
+			full-width="320px"
+		>
+		</i-chat>
 	
 		<script>
 			angular.module("iChatExample",['iChat']);

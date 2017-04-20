@@ -1,5 +1,51 @@
-<div class="i-chat-container {{ state }}" style="{{width:}}">
+<div class="i-chat-container {{ state }}" style="{{ 'width:' + width + '; height:' + height }}">
 	<div class="i-chat-container-inner">
-		{{ label }}
+		<div class="i-chat-container-inner-chat-restore-btn-container text-center">
+			<button ng-if="state == 'closed'" type="button" ng-click="iChatToggle()" class="i-chat-container-inner-chat-restore-btn {{ btnClass }}" style="{{'width:' + btnWidth + '; height:' + btnHeight}}"> 
+				{{ label }}
+			</button>
+		</div>
+		<div class="i-chat-container-inner-chat-container">
+			<div class="i-chat-container-inner-chat-container" ng-if="state == 'opened'"> 
+					<div class="i-chat-container-inner-chat-minimize-btn-container text-right">
+						<button class="i-chat-container-inner-chat-minimize-btn" ng-if="state == 'opened'" type="button" ng-click="iChatToggle()"> 
+							_
+						</button>
+					</div>
+					<div id="i-chat-container-inner-chat" class="i-chat-container-inner-chat">
+						<div id="i-chat-container-inner-chat-content" class="i-chat-container-inner-chat-content">
+							<div ng-bind-html="chats"></div>
+						</div>
+					</div>             
+					<form id="i-chat-container-inner-chat-form" action="" method="post" class="i-chat-container-inner-chat-form" role="form" >
+                        <div id="i-chat-container-inner-chat-controls-container" class="i-chat-container-inner-chat-controls-container">
+                            <div id="i-chat-container-inner-chat-controls" class="i-chat-container-inner-chat-controls">
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[b]','[/b]', 'sendie');" >
+                                    <img src="images/smile/bold.png" alt="B" />
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[i]','[/i]', 'sendie');" >
+                                    <img src="images/smile/italic.png" alt="I" />
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" onclick="chat.addChatBIU('[u]','[/u]', 'sendie');" >
+                                    <img src="images/smile/underline.png" alt="U" />
+                                </button>
+                            </div>
+                        </div>
+                        
+                       	<div class="form-group margin-0">
+                            <textarea 
+								ng-model="typedText" 
+								id="i-chat-container-inner-chat-typing-box" 
+								class="i-chat-container-inner-chat-typing-box" 
+								rows="3" maxlength = "1000" 
+								ng-keyup="$event.keyCode == 13 && iChatSend(typedText)"
+							></textarea>
+                        </div>                    
+                        <div class="form-group">
+                            <input type="button" value="Send" class="btn btn-success btn-block i-chat-container-inner-chat-btn-send" id="i-chat-container-inner-chat-btn-send" ng-click="iChatSend(typedText)" />
+                        </div>                    
+                    </form>				
+			</div>
+		</div>		
 	</div>
 </div>
