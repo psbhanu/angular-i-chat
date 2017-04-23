@@ -50,8 +50,22 @@
 		return function(value, type) {
 			return $sce.trustAs(type || 'html', value);
 		}
-	}]);	
-	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', '$sce', function($animate, $q, $parse, $injector, $sce) {
+	}]);
+	iChat.directive('schrollBottom', function () {
+		return {
+			scope: {
+				schrollBottom: "="
+			},
+			link: function (scope, element) {
+				scope.$watchCollection('schrollBottom', function (newValue) {
+					if (newValue) {
+						$(element).scrollTop($(element)[0].scrollHeight);
+					}
+				});
+			}
+		}
+	});
+	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', '$sce', 'iChatRequest', function($animate, $q, $parse, $injector, $sce, iChatRequest) {
 		
 		return {
 			restrict: 'ECA',
@@ -103,17 +117,49 @@
 					}
 				}
 				scope.iChatSend = function(typedText){
-					scope.iChatUpdate();
+					iChatRequest.send(typedText, 100);
 					_l(typedText);
 					scope.chats = $sce.trustAsHtml(scope.chats + '<p><strong>Me: </strong>' + typedText + '</p>'); 
 					this.typedText = '';
 				}
 				
 				scope.iChatUpdate = function(){
-					document.getElementById('i-chat-container-inner-chat-content').scrollTop = document.getElementById('i-chat-container-inner-chat-content').scrollHeight;
-				}
+					//iChatRequest.update(message, receiver_id);
+				};
 			}
 		  };
 	}]);
+	
+	iChat.service('iChatRequest', function($http){
+		this.send = function(message, receiver_id){
+			$http({
+				url: '/api/v1/chat/',
+				method: "POST",
+				data: 'action=send&message=' + message + '&receiver_id=' + receiver_id,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			})
+			.then(function(response) {
+				_l(response);
+				// success
+			}, 
+			function(response) { // optional
+				// failed
+			});	
+		};
+		this.update = function(message, sender_id){
+			$http({
+				url: '/api/v1/chat/',
+				method: "POST",
+				data: 'action=update&receiver_id=' + receiver_id,
+			})
+			.then(function(response) {
+				_l(response);
+				// success
+			}, 
+			function(response) { // optional
+				// failed
+			});	
+		};
+	});
 	
 })(window, window.angular);

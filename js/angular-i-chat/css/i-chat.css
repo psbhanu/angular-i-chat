@@ -24,7 +24,8 @@
 }
 .i-chat-container-inner-chat-content {
 	height: 360px; 
-	overflow: auto; 
+	overflow-y: auto; 
+	overflow-x: hidden; 
 	margin-top: 0px;
 	padding:10px;
 	background-color: #fdfdfd;
