@@ -65,7 +65,7 @@
 			}
 		}
 	});
-	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', '$sce', 'iChatRequest', function($animate, $q, $parse, $injector, $sce, iChatRequest) {
+	iChat.directive('iChat', ['$animate', '$q', '$parse', '$injector', '$sce', '$timeout','iChatRequest', function($animate, $q, $parse, $injector, $sce, $timeout, iChatRequest) {
 		
 		return {
 			restrict: 'ECA',
@@ -77,8 +77,14 @@
 				return attr.templateUrl || 'templates/i-chat.html';
 			},
 			link : function (scope, elem, attr) {
+				scope.updateRate 	= attr.updateRate || 5000;
+				scope.receiverId 	= attr.receiverId || '';
+				scope.receiverName	= attr.receiverName || 'Anonymous';
+				scope.selfId		= attr.selfId || '';
+				scope.selfName		= attr.selfName || 'Anonymous';
 				scope.chats			= '<p><strong>Hi there! How can I help you?</strong></p>';
-				scope.typedText		= '';
+				scope.message		= '';
+				scope.messages		= [];
 				
 				scope.label 		= attr.label || 'iChat';
 				
@@ -116,26 +122,65 @@
 						scope.width 	= scope.minWidth; 
 					}
 				}
-				scope.iChatSend = function(typedText){
-					iChatRequest.send(typedText, 100);
-					_l(typedText);
-					scope.chats = $sce.trustAsHtml(scope.chats + '<p><strong>Me: </strong>' + typedText + '</p>'); 
-					this.typedText = '';
+				
+				scope.iChatSet = function(message){
+					iChatRequest.set(message, scope.receiverId, scope.receiverName, scope.selfId, scope.selfName );
+					scope.messages.push({
+						"id":"0",
+						"p_id":"0",
+						"message_id":"0",
+						"p_message_id":"0",
+						"user_id":scope.selfId,
+						"p_user_id":scope.selfId,
+						"message":message,
+						"user_name":scope.selfName,
+						"p_user_name":scope.selfName,
+						"p_created":"",
+					});
+					_l(message);
+					//scope.chats = $sce.trustAsHtml(scope.chats + '<p><strong>Me: </strong>' + message + '</p>'); 
+					this.message = '';
 				}
 				
-				scope.iChatUpdate = function(){
-					//iChatRequest.update(message, receiver_id);
+				var iChatGetCallback = function(data){
+					_l(data);
+					scope.messages = data;
+				}
+				var iChatGetErrorCallback = function(response){
+				
+				}
+				var iChatGetIdCallback = function(data){
+					_l(data);
+					scope.selfId = data;
+					scope.iChatGet(scope.receiverId, iChatGetCallback, iChatGetErrorCallback);
+				}
+				var iChatGetIdErrorCallback = function(response){
+				
+				}
+
+				scope.iChatGet = function(receiverId, iChatGetCallback, iChatGetErrorCallback){
+					$timeout(function(){
+						iChatRequest.get(receiverId, iChatGetCallback, iChatGetErrorCallback);
+						scope.iChatGet(receiverId, iChatGetCallback, iChatGetErrorCallback);
+					}, scope.updateRate);
 				};
+				
+				if(scope.selfId == '') {
+					iChatRequest.getId(iChatGetIdCallback, iChatGetIdErrorCallback);
+				}
+				else {
+					scope.iChatGet(scope.receiverId, iChatGetCallback, iChatGetErrorCallback);
+				}
 			}
 		  };
 	}]);
 	
 	iChat.service('iChatRequest', function($http){
-		this.send = function(message, receiver_id){
+		this.set = function(message, receiverId, receiverName, selfId, selfName){
 			$http({
 				url: '/api/v1/chat/',
 				method: "POST",
-				data: 'action=send&message=' + message + '&receiver_id=' + receiver_id,
+				data: 'action=set&message=' + message + '&receiver_name=' + receiverName + '&receiver_id=' + receiverId + '&self_id=' + selfId + '&self_name=' + selfName,
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.then(function(response) {
@@ -146,18 +191,88 @@
 				// failed
 			});	
 		};
-		this.update = function(message, sender_id){
+		this.get = function(receiverId, callback, errorCallback){
+			callback	 	= callback || function(data){}
+			errorCallback 	= errorCallback || function(data){}
 			$http({
 				url: '/api/v1/chat/',
 				method: "POST",
-				data: 'action=update&receiver_id=' + receiver_id,
+				data: 'action=get&receiver_id=' + receiverId + '&last_message_id=' + receiverId,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.then(function(response) {
 				_l(response);
 				// success
+				if(response.data){
+					if(response.data.error == 'false'){
+						if(!response.data.messages) {
+							// Messages Missing
+							_l('Executing ErrorCallback 1');
+							errorCallback(response);
+						}
+						else {
+							_l('Executing Callback');
+							callback(response.data.messages);
+						}
+					}
+					else {
+						// Error Occurred at Server end!
+						_l('Executing ErrorCallback 2');
+						errorCallback(response);
+					}
+				}
+				else {
+					// Data Missing
+					_l('Executing ErrorCallback 3');
+					errorCallback(response);
+				}
 			}, 
 			function(response) { // optional
 				// failed
+				_l('Executing ErrorCallback 4');
+				errorCallback(response);
+			});	
+		};
+		this.getId = function(callback, errorCallback){
+			callback	 	= callback || function(data){}
+			errorCallback 	= errorCallback || function(data){}
+			$http({
+				url: '/api/v1/chat/',
+				method: "POST",
+				data: 'action=getId',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			})
+			.then(function(response) {
+				_l(response);
+				// success
+				if(response.data){
+					if(response.data.error == 'false'){
+						if(!response.data.self_id) {
+							// Messages Missing
+							_l('Executing ErrorCallback 1');
+							errorCallback(response);
+						}
+						else {
+							_l('Executing Callback');
+							callback(response.data.self_id);
+						}
+					}
+					else {
+						// Error Occurred at Server end!
+						_l('Executing ErrorCallback 2');
+						errorCallback(response);
+					}
+				}
+				else {
+					// Data Missing
+					_l('Executing ErrorCallback 3');
+					errorCallback(response);
+				}
+			}, 
+			function(response) { // optional
+				// failed
+				_l('Executing ErrorCallback 4');
+				errorCallback(response);
 			});	
 		};
 	});

@@ -13,9 +13,23 @@
 						</button>
 					</div>
 					<div id="i-chat-container-inner-chat" class="i-chat-container-inner-chat">
-						<div id="i-chat-container-inner-chat-content" class="i-chat-container-inner-chat-content" schroll-bottom="chats">
+						
+						<div id="i-chat-container-inner-chat-content" class="i-chat-container-inner-chat-content" schroll-bottom="messages">
 							<div ng-bind-html="chats"></div>
+							<div ng-repeat="message in messages">
+								<div class="ichat-chat-entry">
+									<p>
+										<strong class="ichat-chat-user">
+											{{ message.user_name || message.user_id }}:
+										</strong> 
+										<span class="ichat-chat-message">
+											{{ message.message }}
+										</span>
+									</p>
+								</div>
+							</div>
 						</div>
+						
 					</div>             
 					<form id="i-chat-container-inner-chat-form" action="" method="post" class="i-chat-container-inner-chat-form" role="form" >
                         <div id="i-chat-container-inner-chat-controls-container" class="i-chat-container-inner-chat-controls-container">
@@ -34,15 +48,15 @@
                         
                        	<div class="form-group margin-0">
                             <textarea 
-								ng-model="typedText" 
+								ng-model="message" 
 								id="i-chat-container-inner-chat-typing-box" 
 								class="i-chat-container-inner-chat-typing-box" 
 								rows="3" maxlength = "1000" 
-								ng-keyup="$event.keyCode == 13 && iChatSend(typedText)"
+								ng-keyup="$event.keyCode == 13 && iChatSet(message)"
 							></textarea>
                         </div>                    
                         <div class="form-group">
-                            <input type="button" value="Send" class="btn btn-success btn-block i-chat-container-inner-chat-btn-send" id="i-chat-container-inner-chat-btn-send" ng-click="iChatSend(typedText)" />
+                            <input type="button" value="Send" class="btn btn-success btn-block i-chat-container-inner-chat-btn-send" id="i-chat-container-inner-chat-btn-send" ng-click="iChatSet(message)" />
                         </div>                    
                     </form>				
 			</div>
